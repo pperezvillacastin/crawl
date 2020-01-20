@@ -12,6 +12,7 @@
 #include "invent.h"
 #include "items.h"
 #include "macro.h"
+#include "main-game.h"
 #include "message.h"
 #include "prompt.h"
 #include "spl-util.h"
@@ -40,7 +41,7 @@ void adjust()
 
 void adjust_item(int from_slot)
 {
-    while (ui::top_layout())
+    while (!dynamic_cast<UIMainGame*>(ui::top_layout().get()))
         ui::pop_layout();
 
     if (inv_count() < 1)

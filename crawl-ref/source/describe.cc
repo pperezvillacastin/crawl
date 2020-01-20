@@ -4561,7 +4561,7 @@ int describe_monsters(const monster_info &mi, const string& /*footer*/)
     auto title_hbox = make_shared<Box>(Widget::HORZ);
 
 #ifdef USE_TILE_LOCAL
-    auto dgn = make_shared<Dungeon>();
+    auto dgn = make_shared<Dungeon>(tiles.get_image_manager());
     dgn->width = dgn->height = 1;
     dgn->buf().add_monster(mi, 0, 0);
     title_hbox->add_child(move(dgn));

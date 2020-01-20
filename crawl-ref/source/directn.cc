@@ -37,6 +37,7 @@
 #include "libutil.h"
 #include "losglobal.h"
 #include "macro.h"
+#include "main-game.h"
 #include "mapmark.h"
 #include "message.h"
 #include "mon-death.h"
@@ -2077,7 +2078,7 @@ void direction_chooser::finalize_moves()
 
 bool direction_chooser::choose_direction()
 {
-    while (ui::top_layout())
+    while (!dynamic_cast<UIMainGame*>(ui::top_layout().get()))
         ui::pop_layout();
 
     if (restricts == DIR_DIR)

@@ -22,6 +22,7 @@
 #include "fprop.h"
 #include "libutil.h"
 #include "macro.h"
+#include "main-game.h"
 #include "map-knowledge.h"
 #include "message.h"
 #include "options.h"
@@ -628,7 +629,7 @@ bool show_map(level_pos &lpos,
     tiles.do_map_display();
 #endif
 
-    while (ui::top_layout())
+    while (!dynamic_cast<UIMainGame*>(ui::top_layout().get()))
         ui::pop_layout();
 
 #ifdef USE_TILE_WEB

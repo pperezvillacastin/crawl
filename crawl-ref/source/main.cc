@@ -89,6 +89,7 @@
 #include "luaterp.h"
 #include "lookup-help.h"
 #include "macro.h"
+#include "main-game.h"
 #include "makeitem.h"
 #include "map-knowledge.h"
 #include "mapmark.h"
@@ -365,6 +366,8 @@ static void _launch_game_loop()
             const newgame_def defaults = read_startup_prefs();
             newgame_def choice = startup_step(defaults);
 
+            ui::push_layout(make_shared<UIMainGame>(), KMC_NONE);
+
             if (choice.type == GAME_TYPE_ARENA)
             {
                 crawl_state.last_type = GAME_TYPE_ARENA;
@@ -395,6 +398,7 @@ static void _launch_game_loop()
         {
             end(1, false, "Error: truncation inside the save file.\n");
         }
+        ui::pop_layout();
     } while (crawl_should_restart(crawl_state.last_game_exit.exit_reason)
              && game_ended
              && !crawl_state.seen_hups);

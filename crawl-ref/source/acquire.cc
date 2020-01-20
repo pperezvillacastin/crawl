@@ -31,6 +31,7 @@
 #include "invent.h"
 #include "libutil.h"
 #include "macro.h"
+#include "main-game.h"
 #include "message.h"
 #include "output.h"
 #include "options.h"
@@ -1766,7 +1767,7 @@ bool acquirement_menu()
 
     auto &acq_items = you.props[ACQUIRE_ITEMS_KEY].get_vector();
 
-    while (ui::top_layout())
+    while (!dynamic_cast<UIMainGame*>(ui::top_layout().get()))
         ui::pop_layout();
 
     AcquireMenu acq_menu(acq_items);
