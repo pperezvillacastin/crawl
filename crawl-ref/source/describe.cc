@@ -198,13 +198,11 @@ int show_description(const describe_info &inf, const tile_def *tile)
     tiles.json_write_string("quote", inf.quote);
     tiles.json_write_string("body", inf.body.str());
     tiles.push_ui_layout("describe-generic", 0);
+    popup->on_layout_pop([](){ tiles.pop_ui_layout(); });
 #endif
 
     ui::run_layout(move(popup), done);
 
-#ifdef USE_TILE_WEB
-    tiles.pop_ui_layout();
-#endif
     return lastch;
 }
 
@@ -2389,13 +2387,10 @@ void describe_feature_wide(const coord_def& pos)
     }
     tiles.json_close_array();
     tiles.push_ui_layout("describe-feature-wide", 0);
+    popup->on_layout_pop([](){ tiles.pop_ui_layout(); });
 #endif
 
     ui::run_layout(move(popup), done);
-
-#ifdef USE_TILE_WEB
-    tiles.pop_ui_layout();
-#endif
 }
 
 void describe_feature_type(dungeon_feature_type feat)
@@ -2776,13 +2771,10 @@ bool describe_item(item_def &item, function<void (string&)> fixup_desc)
     }
     tiles.json_close_array();
     tiles.push_ui_layout("describe-item", 0);
+    popup->on_layout_pop([](){ tiles.pop_ui_layout(); });
 #endif
 
     ui::run_layout(move(popup), done);
-
-#ifdef USE_TILE_WEB
-    tiles.pop_ui_layout();
-#endif
 
     if (action != CMD_NO_CMD)
         return _do_action(item, actions, lastch);
@@ -3250,13 +3242,10 @@ void describe_spell(spell_type spell, const monster_info *mon_owner,
     tiles.json_write_string("desc", desc);
     tiles.json_write_bool("can_mem", can_mem);
     tiles.push_ui_layout("describe-spell", 0);
+    popup->on_layout_pop([](){ tiles.pop_ui_layout(); });
 #endif
 
     ui::run_layout(move(popup), done);
-
-#ifdef USE_TILE_WEB
-    tiles.pop_ui_layout();
-#endif
 
     if (toupper_safe(lastch) == 'M' && can_mem)
     {
@@ -4717,13 +4706,10 @@ int describe_monsters(const monster_info &mi, const string& /*footer*/)
         }
     }
     tiles.push_ui_layout("describe-monster", 1);
+    popup->on_layout_pop([](){ tiles.pop_ui_layout(); });
 #endif
 
     ui::run_layout(move(popup), done);
-
-#ifdef USE_TILE_WEB
-    tiles.pop_ui_layout();
-#endif
 
     return lastch;
 }
